@@ -1,3 +1,4 @@
+const { ethers } = require("hardhat");
 const ALCHEMY_URL = process.env.ALCHEMY_URL;
 const API_KEY = process.env.ALCHEMY_API_KEY;
 const PRIVATE_KEY = process.env.PRIVATE_KEY;
@@ -21,15 +22,19 @@ const helloWorldContract = new ethers.Contract(
 );
 
 async function interact() {
-  const message = await helloWorldContract.message();
-  console.log("The message is: ", message);
-
-  console.log("Updating the message...");
-  const tx = await helloWorldContract.update("This is the new message.");
-  await tx.wait();
-  console.log(tx);
-
-  const newMessage = await helloWorldContract.message();
-  console.log("The new message: " + newMessage);
+  try{
+    const message = await helloWorldContract.message();
+    console.log("The message is: ", message);
+  
+    console.log("Updating the message...");
+    const tx = await helloWorldContract.update("This is the new message.");
+    await tx.wait();
+    // console.log(tx);
+  
+    const newMessage = await helloWorldContract.message();
+    console.log("The new message: " + newMessage);
+  }catch(error){
+    console.log(error);
+  }
 }
 interact();

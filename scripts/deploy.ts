@@ -1,10 +1,14 @@
-const { ethers } = require("hardhat");
+import { ethers} from "hardhat";
 
 async function main() {
-  const HelloWorld = await ethers.getContractFactory("HelloWorld");
+  const factory = await ethers.getContractFactory("HelloWorld");
 
-  const hellow_world = await HelloWorld.deploy("Hellow World");
-  console.log("Contract delpoed on address: ", hellow_world.address);
+  const helloContract = await factory.deploy("Welcome Mairura")
+  await helloContract.deployed()
+  console.log("Contract deployed on address: ", helloContract.address);
+
+  
+  console.log(helloContract.interface)
 }
 
 main()
@@ -13,3 +17,4 @@ main()
     console.error(error);
     process.exit(1);
   });
+ 
